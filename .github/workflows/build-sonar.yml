@@ -204,7 +204,7 @@ jobs:
 
   push-image:
     environment: ${{ inputs.environment }}
-    if: ${{ github.event.pull_request.merged && github.event.pull_request.state == 'closed' }}
+    # if: ${{ github.event.pull_request.merged && github.event.pull_request.state == 'closed' }}
     name: Push image to Registry
     needs: [build]
     runs-on: ubuntu-latest
