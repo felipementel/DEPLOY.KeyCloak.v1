@@ -247,6 +247,7 @@ jobs:
           context: ./src/
           file: ./src/PoC.KeyCloak.API/Dockerfile
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: |
             ghcr.io/felipementel/deploy.${{ env.imageName }}:latest
             ghcr.io/felipementel/deploy.${{ env.imageName }}:${{ needs.build.outputs.tag-version }}
