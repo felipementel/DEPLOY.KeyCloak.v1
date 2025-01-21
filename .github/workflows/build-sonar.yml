@@ -249,7 +249,7 @@ jobs:
           push: true
           tags: |
             ghcr.io/felipementel/deploy.${{ env.imageName }}:latest
-            ghcr.io/felipementel/deploy.${{ env.imageName }}:${{ steps.build.get-version.outputs.tag }}
+            ghcr.io/felipementel/deploy.${{ env.imageName }}:${{ needs.build.outputs.tag-version }}
           labels: |
             ${{ steps.meta.outputs.labels }}
 
