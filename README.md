@@ -86,6 +86,10 @@ https://www.pgadmin.org/download/pgadmin-4-container/
 https://hub.docker.com/r/keycloak/keycloak
 ````
 
+# Auth Flow
+
+![banner](./docs/img/auth-flow.png)
+
 
 # Docs
 
