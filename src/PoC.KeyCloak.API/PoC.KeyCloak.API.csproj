@@ -7,7 +7,7 @@
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<PreserveCompilationContext>True</PreserveCompilationContext>
-		<Version>1.0.7</Version>
+		<Version>1.0.2</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
