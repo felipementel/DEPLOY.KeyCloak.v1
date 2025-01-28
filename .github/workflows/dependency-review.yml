@@ -11,6 +11,10 @@ name: 'Dependency review'
 on:
   pull_request:
     branches: [ "main" ]
+    types: [closed]
+    paths-ignore:
+      - '**.md'
+      - '.github/**'
 
 # If using a dependency submission action in this workflow this permission will need to be set to:
 #
