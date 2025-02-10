@@ -42,7 +42,7 @@ on:
         type: string
         description: 'Message to be displayed in the summary'
         required: false
-        default: 'nada a declarar'
+        default: 'Canal DEPLOY - o seu canal no YouTube'
  
 env:
   dotnetVersion: 9.x
