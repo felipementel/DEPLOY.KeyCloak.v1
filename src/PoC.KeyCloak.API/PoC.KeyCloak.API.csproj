@@ -15,7 +15,7 @@
 		<PackageReference Include="Keycloak.AuthServices.Authentication" Version="2.6.0" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.1" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
-		<PackageReference Include="Scalar.AspNetCore" Version="2.0.12" />
+		<PackageReference Include="Scalar.AspNetCore" Version="2.0.18" />
 	</ItemGroup>
 	
 	<ItemGroup>
