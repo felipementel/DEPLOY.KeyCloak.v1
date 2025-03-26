@@ -1,0 +1,17 @@
+{
+  "profiles": {
+    "https": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "scalar/v1",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_HTTPS_PORT": "7550",
+        "ASPNETCORE_HTTP_PORT": "7551"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7550;http://localhost:7551"
+    }
+  },
+  "$schema": "http://json.schemastore.org/launchsettings.json"
+}

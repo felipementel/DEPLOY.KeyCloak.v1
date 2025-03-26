@@ -1,5 +1,8 @@
-name: CI
+name: Sanbox Dispatch ⚡
 run-name: "${{ github.actor }} - ${{ github.run_id }}"
+
+#SECRETS: GITLEAKS_LICENSE, SONAR_TOKEN, SONAR_PROJECT_KEY, SNYK_TOKEN
+#VARS: SONAR_ORGANIZATION
 
 on:
   pull_request:
@@ -10,6 +13,8 @@ on:
     paths-ignore:
       - '**.md'
       - '.github/**'
+      - 'docker/**'
+      - 'docs/**'
   # workflow_call:
   workflow_dispatch:
     inputs:
@@ -42,22 +47,39 @@ on:
         type: string
         description: 'Message to be displayed in the summary'
         required: false
-        default: 'Canal DEPLOY - o seu canal no YouTube'
+        default: 'Canal DEPLOY - O melhor canal sobre .NET, Azure, DevOps e IA'
  
 env:
+#plus
+  RED: '\033[0;31m'
+  GREEN: '\033[0;32m'
+  YELLOW: '\033[0;33m'
+  BLUE: '\033[0;34m'
+  RESET: '\033[0m'
+#build config
   dotnetVersion: 9.x
-  csprojFolder: ./src/PoC.KeyCloak.API/PoC.KeyCloak.API.csproj
-  imageName: poc.keycloak
+  projectBaseDir: ./src
+  sln: DEPLOY.KeyCloak.sln
+  mainProject: DEPLOY.KeyCloak.API
+#build use
+  pathToSln: $projectBaseDir/$sln
+  pathToCsproj: $projectBaseDir/$mainProject/$mainProject.csproj
+  sonarExclusions: '**/Migrations/**'
+#push-image
+  imageName: hybridcache
+  pathToDockerFile: $projectBaseDir/$mainProject/Dockerfile
 
 jobs:
   build:
+    name: Build
     environment: ${{ inputs.environment }}
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: true
     outputs:
-      tag-version: ${{ steps.get-version.outputs.tag }}
+      tag-version: ${{ steps.get-version.outputs.TAG }}
       now: ${{ steps.get-env.outputs.NOW }}
+      image-exists: ${{ steps.check-image-and-tag.outputs.IMAGE_EXISTS }}
     runs-on: ubuntu-latest
     timeout-minutes: 4
     permissions:
@@ -68,7 +90,7 @@ jobs:
       - name: Get Environment
         id: get-env
         run: |
-          echo "::warning::Environment ${{ inputs.environment }}"
+          echo -e "${GREEN} ::warning::Environment ${{ inputs.environment }}"
           echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_OUTPUT
 
       - name: Sys - Checkout
@@ -78,8 +100,14 @@ jobs:
         id: get-version
         shell: bash
         run: |
-          version=$(sed -n 's/.*<Version>\(.*\)<\/Version>.*/\1/p' $csprojFolder)
-          echo "tag=$version" >> "$GITHUB_OUTPUT"
+          version=$(sed -n 's/.*<Version>\(.*\)<\/Version>.*/\1/p' ${{ env.pathToCsproj }})
+          
+          if [[ -z "$version" ]]; then
+            echo -e "${RED} Erro: A versão não foi encontrada no arquivo .csproj"
+            exit 1
+          fi
+
+          echo "TAG=$version" >> "$GITHUB_OUTPUT"
       
       - name: Sys - Setup .NET version ${{ env.dotnetVersion }}
         uses: actions/setup-dotnet@v4
@@ -127,12 +155,13 @@ jobs:
           restore-keys: ${{ runner.os }}-sonar-scanner
     
       - name: 🔐 SonarCloud scanner installer
-        if: ${{ inputs.sonar-qube }}
+        if: ${{ inputs.sonar-qube }} #&& (steps.cache-sonar-scanner.outputs.cache-hit != 'true')
         run: |
           mkdir -p .sonar/scanner
           dotnet tool install --global dotnet-sonarscanner
+        # --tool-path .sonar/scanner
         
-      - name: 🔐 Build and analyze  (Test ✅, Sonar ✅)
+      - name: 🔐 Build and analyze (Test ✅, Sonar ✅)
         if: ${{ inputs.unit-tests && inputs.sonar-qube }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -143,10 +172,11 @@ jobs:
             /o:"${{ vars.SONAR_ORGANIZATION }}" \
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
             /d:sonar.host.url="https://sonarcloud.io" \
+            /d:sonar.scanner.scanAll=false \
             /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml \
-            /d:sonar.exclusions="**/Migrations/**"
-          dotnet restore ${{ env.csprojFolder }}
-          dotnet build ${{ env.csprojFolder }} --no-incremental
+            /d:sonar.exclusions="${{ env.sonarExclusions }}"
+          dotnet restore ${{ env.pathToCsproj }}
+          dotnet build ${{ env.pathToCsproj }} --no-incremental
           dotnet-coverage collect 'dotnet test ./src/' -f xml  -o 'coverage.xml'
           dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
@@ -161,19 +191,19 @@ jobs:
             /o:"${{ vars.SONAR_ORGANIZATION }}" \
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
             /d:sonar.host.url="https://sonarcloud.io" \
-            /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml \
-            /d:sonar.exclusions="**/Migrations/**"
-          dotnet restore ${{ env.csprojFolder }}
-          dotnet build ${{ env.csprojFolder }} --no-incremental
+            /d:sonar.scanner.scanAll=false \
+            /d:sonar.exclusions="${{ env.sonarExclusions }}"
+          dotnet restore ${{ env.pathToCsproj }}
+          dotnet build ${{ env.pathToCsproj }} --no-incremental
           dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
       - name: 🔐 Build and analyze (Test ✅, Sonar ⛔)
         if: ${{ inputs.unit-tests && !inputs.sonar-qube }}
         run: |
-          dotnet-coverage collect 'dotnet test ./src/' -f xml -o 'coverage.xml'
+          dotnet-coverage collect 'dotnet test ./src/' -f xml  -o 'coverage.xml'
 
       - name: 🍵 Restore dependencies
-        run: dotnet restore ./src/PoC.KeyCloak.sln
+        run: dotnet restore ${{ env.pathToCsproj }}
 
       - name: 🍵 Snyk Setup
         uses: snyk/actions/setup@master
@@ -184,7 +214,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --sarif-file-output=snyk.sarif --file=./src/PoC.KeyCloak.sln
+          args: --sarif-file-output=snyk.sarif --file=${{ env.pathToSln }}
         
       - name: 🍵 Upload result to GitHub Code Scanning
         if: ${{ inputs.git-leaks }}
@@ -198,16 +228,44 @@ jobs:
           # Versão gerada\n
           | versao | data | 
           |--|--|
-          | ${{ steps.get-version.outputs.tag }} | ${{ steps.get-env.outputs.now }} |  \n
+          | ${{ steps.get-version.outputs.tag }} | ${{ steps.get-env.outputs.now }} | \n
           Mensagem: ${{ inputs.msg-canal-deploy }}\n'
           echo "$SUMMARY" >> $GITHUB_STEP_SUMMARY
+          
+  check-image:
+    name: Check if image exists
+    runs-on: ubuntu-latest
+    outputs:
+      image-exists: ${{ steps.check-image-and-tag.outputs.IMAGE_EXISTS }}
+    needs: build
+    steps:
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Check if image with same tag exists
+        id: check-image-and-tag
+        run: |
+          IMAGE_TAG="ghcr.io/${{ github.actor }}/deploy.${{ env.imageName }}:${{ needs.build.outputs.tag-version }}"
+          echo "Checking existence of $IMAGE_TAG..."
+          if docker manifest inspect "$IMAGE_TAG" > /dev/null 2>&1; then
+            echo -e "✅ ${GREEN} Image exists in registry"
+            echo "IMAGE_EXISTS=true" >> "$GITHUB_OUTPUT"
+          else
+            echo -e "🔍 ${RED} Image does not exist in registry"
+            echo "IMAGE_EXISTS=false" >> "$GITHUB_OUTPUT"
+          fi
+          
   push-image:
+    name: Push image to Registry
     environment: ${{ inputs.environment }}
     # if: ${{ github.event.pull_request.merged && github.event.pull_request.state == 'closed' }}
-    name: Push image to Registry
-    needs: [build]
+    needs: [build, check-image]
     runs-on: ubuntu-latest
+    if: ${{ needs.check-image.outputs.image-exists == 'false' }}
     permissions:
       packages: write
       contents: read
@@ -240,26 +298,54 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            ghcr.io/felipementel/deploy.${{ env.imageName }}
+            ghcr.io/${{ github.actor }}/deploy.${{ env.imageName }}
 
       - name: Build and push ghcr
         uses: docker/build-push-action@v5
         with:
-          context: ./src/
-          file: ./src/PoC.KeyCloak.API/Dockerfile
+          context: ${{ env.projectBaseDir }}
+          file: ${{ env.pathToDockerFile }}
           push: true
           tags: |
-            ghcr.io/felipementel/deploy.${{ env.imageName }}:latest
-            ghcr.io/felipementel/deploy.${{ env.imageName }}:${{ needs.build.outputs.tag-version }}
+            ghcr.io/${{ github.actor }}/deploy.${{ env.imageName }}:latest
+            ghcr.io/${{ github.actor }}/deploy.${{ env.imageName }}:${{ needs.build.outputs.tag-version }}
           labels: |
             ${{ steps.meta.outputs.labels }}
 
       - name: Write to workflow job summary DEPLOY
         run: |
           SUMMARY=$'
-          # Versão publicada\n
+          # Image publicada\n
           | versao | data | 
           |--|--|
-          | ${{ needs.build.outputs.tag-version }} | ${{ needs.build.outputs.now }} |  \n
+          | ${{ needs.build.outputs.tag-version }} | ${{ needs.build.outputs.now }} | \n
           Mensagem: ${{ inputs.msg-canal-deploy }}\n'
           echo "$SUMMARY" >> $GITHUB_STEP_SUMMARY
+
+  publish:
+    name: Publish
+    needs: [push-image]
+    environment: ${{ inputs.environment }}
+    # if: ${{ github.event.pull_request.merged && github.event.pull_request.state == 'closed' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Write to workflow job summary DEPLOY
+        run: |
+          SUMMARY=$'
+          # Detalhes sobre publicação\n
+          | versao | data | 
+          |--|--|
+          | ${{ needs.build.outputs.tag-version }} | ${{ needs.build.outputs.now }} | \n
+          Mensagem: ${{ inputs.msg-canal-deploy }}\n'
+          echo "$SUMMARY" >> $GITHUB_STEP_SUMMARY
+          
+  notify-image-exists:
+    name: Notify when already image exists
+    needs: [build, check-image]
+    environment: ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-image.outputs.image-exists == 'true' }}
+    steps:
+      - name: Write to workflow job summary
+        run: |
+          echo "Image with tag ${{ needs.build.outputs.tag-version }} already exists. Skipping push image to registry and publish on Azure Cloud." >> $GITHUB_STEP_SUMMARY

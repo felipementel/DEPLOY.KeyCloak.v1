@@ -1,0 +1,6 @@
+@localhost = http://localhost:7551
+
+GET {{localhost}}/ping/
+Accept: application/json
+
+###
