@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
 
-namespace PoC.KeyCloak.API.Tests
+namespace DEPLOY.KeyCloak.API.Tests
 {
     public class NumbersTest : IClassFixture<WebApplicationFactory<Program>>
     {

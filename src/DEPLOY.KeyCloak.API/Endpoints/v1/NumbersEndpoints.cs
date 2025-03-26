@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PoC.KeyCloak.API.Endpoints.v1
+namespace DEPLOY.KeyCloak.API.Endpoints.v1
 {
     public static class NumbersEndpoints
     {
