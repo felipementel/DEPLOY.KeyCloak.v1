@@ -3,7 +3,6 @@ using DEPLOY.KeyCloak.API.Endpoints.v1;
 using Keycloak.AuthServices.Authentication;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.OpenApi;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -14,7 +13,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -112,7 +110,7 @@ internal sealed class BearerSecuritySchemeTransformer(
 {
     public async Task TransformAsync(
         OpenApiDocument document,
-        OpenApiDocumentTransformerContext context, 
+        OpenApiDocumentTransformerContext context,
         CancellationToken cancellationToken)
     {
         var authenticationSchemes = await authenticationSchemeProvider.GetAllSchemesAsync();
@@ -126,7 +124,7 @@ internal sealed class BearerSecuritySchemeTransformer(
                     Type = SecuritySchemeType.Http,
                     Scheme = "Bearer",
                     In = ParameterLocation.Header,
-                    BearerFormat = "Json Web Token"
+                    BearerFormat = "JWT - Json Web Token"
                 }
             };
             document.Components ??= new OpenApiComponents();

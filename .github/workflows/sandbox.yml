@@ -61,13 +61,12 @@ env:
   projectBaseDir: ./src
   sln: DEPLOY.KeyCloak.sln
   mainProject: DEPLOY.KeyCloak.API
+  reportTitle: 'Canal DEPLOY KeyCloak API'
 #build use
-  pathToSln: $projectBaseDir/$sln
-  pathToCsproj: $projectBaseDir/$mainProject/$mainProject.csproj
-  sonarExclusions: ''
+  sonarExclusions: ""
 #push-image
   imageName: keycloak-v1
-  pathToDockerFile: $projectBaseDir/$mainProject/Dockerfile
+
 
 jobs:
   build:
@@ -95,12 +94,17 @@ jobs:
 
       - name: Sys - Checkout
         uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            src
+            test
+          sparse-checkout-cone-mode: false
 
       - name: Sys - Get-Version from csproj
         id: get-version
         shell: bash
         run: |
-          version=$(sed -n 's/.*<Version>\(.*\)<\/Version>.*/\1/p' ${{ env.pathToCsproj }})
+          version=$(sed -n 's/.*<Version>\(.*\)<\/Version>.*/\1/p' ${{ env.projectBaseDir }}/${{ env.mainProject }}/${{ env.mainProject }}.csproj)
           
           if [[ -z "$version" ]]; then
             echo -e "${RED} Erro: A versão não foi encontrada no arquivo .csproj"
@@ -160,6 +164,12 @@ jobs:
           mkdir -p .sonar/scanner
           dotnet tool install --global dotnet-sonarscanner
         # --tool-path .sonar/scanner
+
+      # - name: Listar diretórios
+      #   run: ls -R
+    
+      # - name: Executar testes
+      #   run: find . -name "*.Tests.csproj" -print
         
       - name: 🔐 Build and analyze (Test ✅, Sonar ✅)
         if: ${{ inputs.unit-tests && inputs.sonar-qube }}
@@ -174,10 +184,10 @@ jobs:
             /d:sonar.host.url="https://sonarcloud.io" \
             /d:sonar.scanner.scanAll=false \
             /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml \
-            /d:sonar.exclusions="${{ env.sonarExclusions }}"
-          dotnet restore ${{ env.pathToCsproj }}
-          dotnet build ${{ env.pathToCsproj }} --no-incremental
-          dotnet-coverage collect 'dotnet test ${{ env.projectBaseDir }}/${{ env.mainProject }}.Tests' -f xml -o 'coverage.xml'
+            /d:sonar.exclusions="${{ env.sonarExclusions || ' '}}"
+          dotnet restore ${{ env.projectBaseDir }}/${{ env.mainProject }}/${{ env.mainProject }}.csproj
+          dotnet build ${{ env.projectBaseDir }}/${{ env.mainProject }}/${{ env.mainProject }}.csproj --no-incremental
+          dotnet-coverage collect 'dotnet test ./src/' --output-format xml --output 'coverage.xml'
           dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
       - name: 🔐 Build and analyze (Test ⛔, Sonar ✅)
@@ -192,18 +202,43 @@ jobs:
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
             /d:sonar.host.url="https://sonarcloud.io" \
             /d:sonar.scanner.scanAll=false \
-            /d:sonar.exclusions="${{ env.sonarExclusions }}"
-          dotnet restore ${{ env.pathToCsproj }}
-          dotnet build ${{ env.pathToCsproj }} --no-incremental
+            /d:sonar.exclusions="${{ env.sonarExclusions || ' '}}"
+          dotnet restore ${{ env.projectBaseDir }}/${{ env.mainProject }}/${{ env.mainProject }}.csproj
+          dotnet build ${{ env.projectBaseDir }}/${{ env.mainProject }}/${{ env.mainProject }}.csproj --no-incremental
           dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
       - name: 🔐 Build and analyze (Test ✅, Sonar ⛔)
         if: ${{ inputs.unit-tests && !inputs.sonar-qube }}
         run: |
-          dotnet-coverage collect 'dotnet test ./src/' -f xml  -o 'coverage.xml'
+          dotnet-coverage collect 'dotnet test ./src/' -f xml -o 'coverage.xml'
+
+      - name: Listar diretórios
+        run: ls -R
+
+      - name: ReportGenerator
+        if: ${{ inputs.unit-tests }}
+        uses: danielpalme/ReportGenerator-GitHub-Action@5.4.5
+        with:
+          reports: '**/*coverage.xml'
+          targetdir: 'coveragereport'
+          reporttypes: 'HtmlInline;Cobertura'
+          assemblyfilters: '+*'
+          classfilters: '-*.Migrations.*'
+          filefilters: '+*'
+          verbosity: 'Verbose'
+          title: ${{ env.reportTitle }}
+          tag: '${{ github.run_number }}_${{ github.run_id }}'
+          toolpath: 'reportgeneratortool'
+
+      - name: Upload coverage report artifact
+        if: ${{ inputs.unit-tests }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: CoverageReport
+          path: coveragereport
 
       - name: 🍵 Restore dependencies
-        run: dotnet restore ${{ env.pathToCsproj }}
+        run: dotnet restore ${{ env.projectBaseDir }}/${{ env.mainProject }}/${{ env.mainProject }}.csproj
 
       - name: 🍵 Snyk Setup
         uses: snyk/actions/setup@master
@@ -214,7 +249,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          args: --sarif-file-output=snyk.sarif --file=${{ env.pathToSln }}
+          args: --sarif-file-output=snyk.sarif --file=${{ env.projectBaseDir }}/${{ env.sln }}
         
       - name: 🍵 Upload result to GitHub Code Scanning
         if: ${{ inputs.git-leaks }}
@@ -275,6 +310,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          sparse-checkout: |
+            src
+          sparse-checkout-cone-mode: false
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -304,7 +342,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ${{ env.projectBaseDir }}
-          file: ${{ env.pathToDockerFile }}
+          file: ${{ env.projectBaseDir }}/${{ env.mainProject }}/Dockerfile
           push: true
           tags: |
             ghcr.io/${{ github.actor }}/deploy.${{ env.imageName }}:latest

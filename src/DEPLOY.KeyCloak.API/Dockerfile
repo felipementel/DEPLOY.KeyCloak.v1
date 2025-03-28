@@ -12,19 +12,19 @@ EXPOSE 7001
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["PoC.KeyCloak.API/PoC.KeyCloak.API.csproj", "PoC.KeyCloak.API/"]
-RUN dotnet restore "./PoC.KeyCloak.API/PoC.KeyCloak.API.csproj"
+COPY ["DEPLOY.KeyCloak.API/DEPLOY.KeyCloak.API.csproj", "DEPLOY.KeyCloak.API/"]
+RUN dotnet restore "./DEPLOY.KeyCloak.API/DEPLOY.KeyCloak.API.csproj"
 COPY . .
-WORKDIR "/src/PoC.KeyCloak.API"
-RUN dotnet build "./PoC.KeyCloak.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/DEPLOY.KeyCloak.API"
+RUN dotnet build "./DEPLOY.KeyCloak.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./PoC.KeyCloak.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./DEPLOY.KeyCloak.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "PoC.KeyCloak.API.dll"]
+ENTRYPOINT ["dotnet", "DEPLOY.KeyCloak.API.dll"]

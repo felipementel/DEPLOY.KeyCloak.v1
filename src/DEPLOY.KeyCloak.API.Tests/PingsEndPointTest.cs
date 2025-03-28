@@ -2,6 +2,7 @@
 using System.Net;
 using System.Reflection;
 using System.Text.Json;
+using Xunit;
 
 namespace DEPLOY.KeyCloak.API.Tests
 {
@@ -30,7 +31,7 @@ namespace DEPLOY.KeyCloak.API.Tests
             var responseObject = JsonSerializer.Deserialize<JsonElement>(responseContent);
             var version = responseObject.GetProperty("version").GetString();
 
-            string versionDLL = Assembly.LoadFrom("PoC.KeyCloak.API.dll").GetName().Version!.ToString();
+            string versionDLL = Assembly.LoadFrom("DEPLOY.KeyCloak.API.dll").GetName().Version!.ToString();
             Assert.Equal(versionDLL, version);
         }
 

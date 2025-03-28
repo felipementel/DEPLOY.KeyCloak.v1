@@ -20,6 +20,6 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-		<InternalsVisibleTo Include="PoC.KeyCloak.API.Tests" />
+		<InternalsVisibleTo Include="DEPLOY.KeyCloak.API.Tests" />
 	</ItemGroup>
 </Project>
