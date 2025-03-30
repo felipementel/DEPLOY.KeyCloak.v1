@@ -66,7 +66,7 @@ env:
   sonarExclusions: ""
 #push-image
   imageName: keycloak-v1
-
+  registryOwner: felipementel
 
 jobs:
   build:
@@ -132,7 +132,7 @@ jobs:
           GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
           GITLEAKS_ENABLE_SUMMARY: true
           GITLEAKS_ENABLE_UPLOAD_ARTIFACT: true
-          GITLEAKS_NOTIFY_USER_LIST: '@felipementel'
+          GITLEAKS_NOTIFY_USER_LIST: '@${{  env.registryOwner  }}'
 
       - name: 🔐 Set up JDK 23 to use with SonarCloud
         if: ${{ inputs.sonar-qube }}
@@ -336,7 +336,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            ghcr.io/${{ github.actor }}/deploy.${{ env.imageName }}
+            ghcr.io/${{ env.registryOwner }}/deploy.${{ env.imageName }}
 
       - name: Build and push ghcr
         uses: docker/build-push-action@v5
@@ -345,8 +345,8 @@ jobs:
           file: ${{ env.projectBaseDir }}/${{ env.mainProject }}/Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.actor }}/deploy.${{ env.imageName }}:latest
-            ghcr.io/${{ github.actor }}/deploy.${{ env.imageName }}:${{ needs.build.outputs.tag-version }}
+            ghcr.io/${{ env.registryOwner }}/deploy.${{ env.imageName }}:latest
+            ghcr.io/${{ env.registryOwner }}/deploy.${{ env.imageName }}:${{ needs.build.outputs.tag-version }}
           labels: |
             ${{ steps.meta.outputs.labels }}
 
