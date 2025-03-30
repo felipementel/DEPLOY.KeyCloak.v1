@@ -15,7 +15,7 @@ updates:
     assignees:
       - "felipementel"
     labels:
-      - "triage-board"
+      - "dependabot"
     commit-message:
       # Prefix all commit messages with [docker] " (no colon, but a trailing whitespace)
       prefix: "[nuget] "
@@ -32,7 +32,7 @@ updates:
     assignees:
       - "felipementel"
     labels:
-      - "triage-board"
+      - "dependabot"
     commit-message:
       # Prefix all commit messages with [docker] " (no colon, but a trailing whitespace)
       prefix: "[docker] "
