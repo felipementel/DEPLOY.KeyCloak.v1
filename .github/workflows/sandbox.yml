@@ -46,15 +46,6 @@ on:
         required: false
         default: 'Canal DEPLOY - O melhor canal sobre .NET, Azure, DevOps e IA'
 
-env:
-  dotnetVersion: 9.x
-  projectBaseDir: ./src
-  sln: DEPLOY.KeyCloak.sln
-  mainProject: DEPLOY.KeyCloak.API
-  reportTitle: 'Canal DEPLOY KeyCloak API'
-  sonarExclusions: ""
-  imageName: keycloak-v1
-
 jobs:
   call-reusable-workflow:
     uses: felipementel/reusable-workflows/.github/workflows/sandbox.yml@main
