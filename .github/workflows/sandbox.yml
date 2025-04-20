@@ -66,5 +66,5 @@ jobs:
       mainProject: ${{ vars.MAINPROJECT }}
       reportTitle: ${{ vars.REPORTTITLE }}
       sonarExclusions: ${{ vars.SONAREXCLUSIONS || ''}}
-      imageName: ${{ vars.IMAGENAME }}
+      imageName: ${{ vars.IMAGENAME }}-sandbox
     secrets: inherit
