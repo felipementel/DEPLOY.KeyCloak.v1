@@ -58,6 +58,10 @@ env:
 jobs:
   call-reusable-workflow:
     uses: felipementel/reusable-workflows/.github/workflows/sandbox.yml@main
+    permissions:
+      contents: read # Necessário para checkout
+      packages: write # Necessário para o job push-image publicar a imagem Docker no GitHub Packages (ghcr.io)
+      security-events: write # Necessário para fazer upload de resultados do Snyk ou Gitleaks para o GitHub Code Scanning/Security
     with:
       environment: ${{ inputs.environment }}
       git-leaks: ${{ inputs.git-leaks }}
@@ -72,8 +76,4 @@ jobs:
       reportTitle: $env.reportTitle
       sonarExclusions: $env.sonarExclusions
       imageName: $imageName
-    secrets:
-      GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
-      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+    secrets: inherit
