@@ -69,11 +69,11 @@ jobs:
       unit-tests: ${{ inputs.unit-tests }}
       snyk: ${{ inputs.snyk }}
       msg-canal-deploy: ${{ inputs.msg-canal-deploy }}
-      dotnetVersion: ${{ env.dotnetVersion }}
-      projectBaseDir: ${{ env.projectBaseDir }}
-      sln: ${{ env.sln }}
-      mainProject: ${{ env.mainProject }}
-      reportTitle: ${{ env.reportTitle }}
-      sonarExclusions: ${{ env.sonarExclusions }}
-      imageName: ${{ env.imageName }}
+      dotnetVersion: ${{ vars.dotnetVersion }}
+      projectBaseDir: ${{ vars.projectBaseDir }}
+      sln: ${{ vars.sln }}
+      mainProject: ${{ vars.mainProject }}
+      reportTitle: ${{ vars.reportTitle }}
+      sonarExclusions: ${{ vars.sonarExclusions }}
+      imageName: ${{ vars.imageName }}
     secrets: inherit
