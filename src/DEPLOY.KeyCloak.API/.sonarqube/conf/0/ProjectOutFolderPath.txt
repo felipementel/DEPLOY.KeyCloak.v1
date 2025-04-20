@@ -1,1 +1,0 @@
-C:\Proj\DEPLOY\_Mantidos\DEPLOY.KeyCloak\src\DEPLOY.KeyCloak.API\.sonarqube\out\0

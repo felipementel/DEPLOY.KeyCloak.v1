@@ -1,1 +1,0 @@
-qR[C:\Proj\DEPLOY\_Mantidos\DEPLOY.KeyCloak\src\DEPLOY.KeyCloak.API\DEPLOY.KeyCloak.API.csproj¢net9.0òCSharp13

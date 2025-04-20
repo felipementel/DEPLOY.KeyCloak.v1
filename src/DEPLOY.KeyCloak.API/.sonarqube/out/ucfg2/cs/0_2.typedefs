@@ -1,6 +1,0 @@
-°
-BearerSecuritySchemeTransformerobject8Microsoft.AspNetCore.OpenApi.IOpenApiDocumentTransformeré
-bBearerSecuritySchemeTransformer(Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider)‚BearerSecuritySchemeTransformer.BearerSecuritySchemeTransformer(Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider)Þ
-œTransformAsync(Microsoft.OpenApi.Models.OpenApiDocument, Microsoft.AspNetCore.OpenApi.OpenApiDocumentTransformerContext, System.Threading.CancellationToken)¼BearerSecuritySchemeTransformer.TransformAsync(Microsoft.OpenApi.Models.OpenApiDocument, Microsoft.AspNetCore.OpenApi.OpenApiDocumentTransformerContext, System.Threading.CancellationToken)1
-Programobject
-	Program()Program.Program()
