@@ -1,0 +1,418 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Microsoft (R) Visual C# Compiler",
+        "version": "4.13.0.0",
+        "fileVersion": "4.13.0-3.25155.17 (398aa319)",
+        "semanticVersion": "4.13.0",
+        "language": "en-US"
+      },
+      "results": [
+        {
+          "ruleId": "CS1998",
+          "level": "warning",
+          "message": "This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Proj/DEPLOY/_Mantidos/DEPLOY.KeyCloak/src/DEPLOY.KeyCloak.API/Endpoints/v1/NumbersEndpoints.cs",
+                "region": {
+                  "startLine": 41,
+                  "startColumn": 33,
+                  "endLine": 41,
+                  "endColumn": 53
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'NumbersEndpoints'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Proj/DEPLOY/_Mantidos/DEPLOY.KeyCloak/src/DEPLOY.KeyCloak.API/Endpoints/v1/NumbersEndpoints.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 25,
+                  "endLine": 13,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'NumbersEndpoints.MapNumbersEndpoints(IEndpointRouteBuilder)'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Proj/DEPLOY/_Mantidos/DEPLOY.KeyCloak/src/DEPLOY.KeyCloak.API/Endpoints/v1/NumbersEndpoints.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 28,
+                  "endLine": 15,
+                  "endColumn": 47
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'PingsEndpoints'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Proj/DEPLOY/_Mantidos/DEPLOY.KeyCloak/src/DEPLOY.KeyCloak.API/Endpoints/v1/PingsEndpoints.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 25,
+                  "endLine": 8,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'PingsEndpoints.MapPingsEndpoints(IEndpointRouteBuilder)'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Proj/DEPLOY/_Mantidos/DEPLOY.KeyCloak/src/DEPLOY.KeyCloak.API/Endpoints/v1/PingsEndpoints.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 28,
+                  "endLine": 10,
+                  "endColumn": 45
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "CS1591",
+          "level": "warning",
+          "message": "Missing XML comment for publicly visible type or member 'Program'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Proj/DEPLOY/_Mantidos/DEPLOY.KeyCloak/src/DEPLOY.KeyCloak.API/Program.cs",
+                "region": {
+                  "startLine": 105,
+                  "startColumn": 22,
+                  "endLine": 105,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 4
+          }
+        },
+        {
+          "ruleId": "S125",
+          "level": "warning",
+          "message": "Remove this commented out code.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Proj/DEPLOY/_Mantidos/DEPLOY.KeyCloak/src/DEPLOY.KeyCloak.API/Program.cs",
+                "region": {
+                  "startLine": 89,
+                  "startColumn": 9,
+                  "endLine": 89,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1118",
+          "level": "warning",
+          "message": "Add a 'protected' constructor or the 'static' keyword to the class declaration.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Proj/DEPLOY/_Mantidos/DEPLOY.KeyCloak/src/DEPLOY.KeyCloak.API/Program.cs",
+                "region": {
+                  "startLine": 105,
+                  "startColumn": 22,
+                  "endLine": 105,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1192",
+          "level": "warning",
+          "message": "Define a constant instead of using this literal 'Bearer' 5 times.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Proj/DEPLOY/_Mantidos/DEPLOY.KeyCloak/src/DEPLOY.KeyCloak.API/Program.cs",
+                "region": {
+                  "startLine": 86,
+                  "startColumn": 26,
+                  "endLine": 86,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Proj/DEPLOY/_Mantidos/DEPLOY.KeyCloak/src/DEPLOY.KeyCloak.API/Program.cs",
+                "region": {
+                  "startLine": 118,
+                  "startColumn": 51,
+                  "endLine": 118,
+                  "endColumn": 59
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Proj/DEPLOY/_Mantidos/DEPLOY.KeyCloak/src/DEPLOY.KeyCloak.API/Program.cs",
+                "region": {
+                  "startLine": 122,
+                  "startColumn": 18,
+                  "endLine": 122,
+                  "endColumn": 26
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Proj/DEPLOY/_Mantidos/DEPLOY.KeyCloak/src/DEPLOY.KeyCloak.API/Program.cs",
+                "region": {
+                  "startLine": 125,
+                  "startColumn": 30,
+                  "endLine": 125,
+                  "endColumn": 38
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///C:/Proj/DEPLOY/_Mantidos/DEPLOY.KeyCloak/src/DEPLOY.KeyCloak.API/Program.cs",
+                "region": {
+                  "startLine": 141,
+                  "startColumn": 34,
+                  "endLine": 141,
+                  "endColumn": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": null,
+              "1": null,
+              "2": null,
+              "3": null
+            }
+          }
+        },
+        {
+          "ruleId": "S3903",
+          "level": "warning",
+          "message": "Move 'BearerSecuritySchemeTransformer' into a named namespace.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Proj/DEPLOY/_Mantidos/DEPLOY.KeyCloak/src/DEPLOY.KeyCloak.API/Program.cs",
+                "region": {
+                  "startLine": 108,
+                  "startColumn": 23,
+                  "endLine": 108,
+                  "endColumn": 54
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1172",
+          "level": "warning",
+          "message": "Remove this unused method parameter 'cancellationToken'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///C:/Proj/DEPLOY/_Mantidos/DEPLOY.KeyCloak/src/DEPLOY.KeyCloak.API/Endpoints/v1/NumbersEndpoints.cs",
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 17,
+                  "endLine": 42,
+                  "endColumn": 62
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "IsRemovable": "True"
+            }
+          }
+        }
+      ],
+      "rules": {
+        "CS1591": {
+          "id": "CS1591",
+          "shortDescription": "Missing XML comment for publicly visible type or member",
+          "fullDescription": "The /doc compiler option was specified, but one or more constructs did not have comments.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS1591)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS1998": {
+          "id": "CS1998",
+          "shortDescription": "Async method lacks 'await' operators and will run synchronously",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS1998)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "S1118": {
+          "id": "S1118",
+          "shortDescription": "Utility classes should not have public constructors",
+          "fullDescription": "Whenever there are portions of code that are duplicated and do not depend on the state of their container class, they can be centralized inside a \"utility class\". A utility class is a class that only has static members, hence it should not be instantiated.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1118",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S1172": {
+          "id": "S1172",
+          "shortDescription": "Unused method parameters should be removed",
+          "fullDescription": "A typical code smell known as unused function parameters refers to parameters declared in a function but not used anywhere within the function’s body. While this might seem harmless at first glance, it can lead to confusion and potential errors in your code. Disregarding the values passed to such parameters, the function’s behavior will be the same, but the programmer’s intention won’t be clearly expressed anymore. Therefore, removing function parameters that are not being utilized is considered best practice.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1172",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S1192": {
+          "id": "S1192",
+          "shortDescription": "String literals should not be duplicated",
+          "fullDescription": "Duplicated string literals make the process of refactoring complex and error-prone, as any change would need to be propagated on all occurrences.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1192",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": false,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S125": {
+          "id": "S125",
+          "shortDescription": "Sections of code should not be commented out",
+          "fullDescription": "Commented-out code distracts the focus from the actual executed code. It creates a noise that increases maintenance code. And because it is never executed, it quickly becomes out of date and invalid.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-125",
+          "properties": {
+            "category": "Major Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S3903": {
+          "id": "S3903",
+          "shortDescription": "Types should be defined in named namespaces",
+          "fullDescription": "Types are declared in namespaces in order to prevent name collisions and as a way to organize them into the object hierarchy. Types that are defined outside any named namespace are in a global namespace that cannot be referenced in code.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-3903",
+          "properties": {
+            "category": "Major Bug",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "TestSourceScope",
+              "SonarWay"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
