@@ -23,6 +23,8 @@ updates:
 
   - package-ecosystem: "docker"
     directory: "/docker"
+    registries:
+      - dockerhub
     schedule:
       interval: "weekly"
       day: "sunday"
