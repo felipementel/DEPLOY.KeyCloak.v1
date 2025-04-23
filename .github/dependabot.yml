@@ -26,7 +26,7 @@ updates:
     schedule:
       interval: "weekly"
       day: "sunday"
-      time: "00:00"
+      time: "01:00"
       timezone: "America/Sao_Paulo" # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
     reviewers:
       - "felipementel"
