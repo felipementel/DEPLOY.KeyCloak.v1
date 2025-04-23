@@ -28,6 +28,7 @@ updates:
   - package-ecosystem: "docker"
     directory: "/docker"
 <<<<<<< HEAD
+<<<<<<< HEAD
     registries:
       - dockerhub
     schedule:
@@ -36,6 +37,10 @@ updates:
       time: "01:00"
       timezone: "America/Sao_Paulo"
 =======
+=======
+    registries:
+      - dockerhub
+>>>>>>> 6c0daff (feat: add dockerhub like registry at dependendabot)
     schedule:
       interval: "weekly"
       day: "sunday"
