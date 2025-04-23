@@ -11,7 +11,11 @@ updates:
       interval: "weekly"
       day: "sunday"
       time: "00:00"
+<<<<<<< HEAD
       timezone: "America/Sao_Paulo"
+=======
+      timezone: "America/Sao_Paulo" # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+>>>>>>> b9f566b (feat: ajuste sobre o dependabot e dependency-review)
     reviewers:
       - "felipementel"
     assignees:
@@ -23,6 +27,7 @@ updates:
 
   - package-ecosystem: "docker"
     directory: "/docker"
+<<<<<<< HEAD
     registries:
       - dockerhub
     schedule:
@@ -30,6 +35,13 @@ updates:
       day: "sunday"
       time: "01:00"
       timezone: "America/Sao_Paulo"
+=======
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+      time: "00:00"
+      timezone: "America/Sao_Paulo" # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+>>>>>>> b9f566b (feat: ajuste sobre o dependabot e dependency-review)
     reviewers:
       - "felipementel"
     assignees:
@@ -45,7 +57,11 @@ updates:
       interval: "weekly"
       day: "sunday"
       time: "02:00"
+<<<<<<< HEAD
       timezone: "America/Sao_Paulo"
+=======
+      timezone: "America/Sao_Paulo" # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+>>>>>>> b9f566b (feat: ajuste sobre o dependabot e dependency-review)
     reviewers:
       - "felipementel"
     assignees:
