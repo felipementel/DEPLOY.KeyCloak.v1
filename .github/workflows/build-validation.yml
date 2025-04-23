@@ -15,11 +15,14 @@ on:
       - 'docs/**'
   workflow_dispatch:
     inputs:
-      environment:
-        type: environment
-        description: 'Environment to run the workflow'
-        required: true
-        default: 'DEV'
+      build-mode:
+        description: "Qual ação deseja fazer?"
+        required: false
+        default: Build
+        type: choice
+        options:
+          - Build
+          - Build + Tag Validation
       git-leaks:
         type: boolean
         description: 'Run GitLeaks'
@@ -54,7 +57,8 @@ jobs:
       packages: write # Necessário para o job push-image publicar a imagem Docker no GitHub Packages (ghcr.io)
       security-events: write # Necessário para fazer upload de resultados do Snyk ou Gitleaks para o GitHub Code Scanning/Security
     with:
-      environment: ${{ inputs.environment }}
+      build-mode: ${{ inputs.build-mode }}
+      environment: DEV
       git-leaks: ${{ inputs.git-leaks }}
       sonar-qube: ${{ inputs.sonar-qube }}
       unit-tests: ${{ inputs.unit-tests }}
@@ -67,4 +71,4 @@ jobs:
       reportTitle: ${{ vars.REPORTTITLE }}
       sonarExclusions: ${{ vars.SONAREXCLUSIONS || ''}}
     secrets:
-      SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+      inherit

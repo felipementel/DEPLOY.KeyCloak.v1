@@ -10,29 +10,45 @@ updates:
     schedule:
       interval: "weekly"
       day: "sunday"
+      time: "00:00"
+      timezone: "America/Sao_Paulo" # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
     reviewers:
       - "felipementel"
     assignees:
       - "felipementel"
     labels:
-      - "triage-board"
+      - "dependabot"
     commit-message:
-      # Prefix all commit messages with [docker] " (no colon, but a trailing whitespace)
       prefix: "[nuget] "
-# Enable version updates for Docker
+
   - package-ecosystem: "docker"
-    # Look for a `Dockerfile` in the `root` directory
     directory: "/docker"
-    # Check for updates once a week
     schedule:
       interval: "weekly"
-      day: "monday"
+      day: "sunday"
+      time: "00:00"
+      timezone: "America/Sao_Paulo" # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
     reviewers:
       - "felipementel"
     assignees:
       - "felipementel"
     labels:
-      - "triage-board"
+      - "dependabot"
     commit-message:
-      # Prefix all commit messages with [docker] " (no colon, but a trailing whitespace)
       prefix: "[docker] "
+
+  - package-ecosystem: "github-actions"
+    directory: "/.github/workflows"
+    schedule:
+      interval: "weekly"
+      day: "sunday"
+      time: "02:00"
+      timezone: "America/Sao_Paulo" # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+    reviewers:
+      - "felipementel"
+    assignees:
+      - "felipementel"
+    labels:
+      - "dependabot"
+    commit-message:
+      prefix: "[github actions] "

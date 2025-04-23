@@ -15,11 +15,14 @@ on:
       - 'docs/**'
   workflow_dispatch:
     inputs:
-      environment:
-        type: environment
-        description: 'Environment to run the workflow'
-        required: true
-        default: 'DEV'
+      build-mode:
+        description: "Qual ação deseja fazer?"
+        required: false
+        default: Build
+        type: choice
+        options:
+          - Build
+          - Build + Tag Validation
       git-leaks:
         type: boolean
         description: 'Run GitLeaks'
@@ -67,4 +70,5 @@ jobs:
       reportTitle: ${{ vars.REPORTTITLE }}
       sonarExclusions: ${{ vars.SONAREXCLUSIONS || ''}}
       imageName: ${{ vars.IMAGENAME }}-sandbox
-    secrets: inherit
+    secrets:
+      inherit
