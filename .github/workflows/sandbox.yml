@@ -23,13 +23,10 @@ on:
         options:
           - Build
           - Build + Tag Validation
-<<<<<<< HEAD
       environment:
         description: 'Qual ambiente deseja fazer o deploy?'
         required: true
         type: environment
-=======
->>>>>>> b9f566b (feat: ajuste sobre o dependabot e dependency-review)
       git-leaks:
         type: boolean
         description: 'Run GitLeaks'
