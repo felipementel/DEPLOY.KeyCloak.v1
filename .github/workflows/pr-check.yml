@@ -9,6 +9,7 @@ on:
     paths-ignore: # Opcional: Ignora mudanças que não afetam o código
       - '**.md'
       - 'docs/**'
+      - 'src/**/_requests/**'
 
 jobs:
   call-pr-check-workflow:
