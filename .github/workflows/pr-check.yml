@@ -1,0 +1,36 @@
+name: 'PR Caller: Validate PR'
+run-name: "PR Check by ${{ github.actor }}"
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened] # Roda quando PR é aberto, atualizado ou reaberto
+    branches:
+      - main # Ou a(s) branch(es) alvo do seu PR
+    paths-ignore: # Opcional: Ignora mudanças que não afetam o código
+      - '**.md'
+      - 'docs/**'
+      - 'src/**/_requests/**'
+
+jobs:
+  call-pr-check-workflow:
+    name: Call PR Check Reusable Workflow
+    uses: felipementel/reusable-workflows/.github/workflows/pr-check.yml@main
+    permissions:
+      contents: read
+      security-events: write
+    with:
+      environment: 'DEV'
+      git-leaks: true
+      sonar-qube: true
+      unit-tests: true
+      snyk: true
+      msg-canal-deploy: 'PR Check - Canal DEPLOY'
+      dotnetVersion: ${{ vars.DOTNETVERSION || '9.x' }}
+      projectBaseDir: ${{ vars.PROJECTBASEDIR || './src' }}
+      sln: ${{ vars.SLN }}
+      mainProject: ${{ vars.MAINPROJECT }}
+      reportTitle: ${{ vars.REPORTTITLE || 'PR Check Report' }}
+      sonarExclusions: ${{ vars.SONAREXCLUSIONS || '' }}
+      imageName: ${{ vars.IMAGENAME }}
+    secrets:
+      inherit

@@ -1,0 +1,79 @@
+name: Sanbox Dispatch ⚡
+run-name: "${{ github.actor }} - ${{ github.run_id }}"
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+    types:
+      - closed
+    paths-ignore:
+      - '**.md'
+      - '.github/**'
+      - 'docker/**'
+      - 'docs/**'
+      - 'src/**/_requests/**'
+  workflow_dispatch:
+    inputs:
+      build-mode:
+        description: "Qual ação deseja fazer?"
+        required: false
+        default: Build
+        type: choice
+        options:
+          - Build
+          - Build + Tag Validation
+      environment:
+        description: 'Qual ambiente deseja fazer o deploy?'
+        required: true
+        type: environment
+      git-leaks:
+        type: boolean
+        description: 'Run GitLeaks'
+        required: false
+        default: true
+      sonar-qube:
+        type: boolean
+        description: 'Run SonarQube'
+        required: false
+        default: true
+      unit-tests:
+        type: boolean
+        description: 'Run Unit Tests'
+        required: false
+        default: true
+      snyk:
+        type: boolean
+        description: 'Snyk.io'
+        required: false
+        default: true
+      msg-canal-deploy:
+        type: string
+        description: 'Message to be displayed in the summary'
+        required: false
+        default: 'Canal DEPLOY - O melhor canal sobre .NET, Azure, DevOps e IA'
+
+jobs:
+  call-reusable-workflow:
+    uses: felipementel/reusable-workflows/.github/workflows/sandbox-api.yml@main
+    permissions:
+      contents: read # Necessário para checkout
+      packages: write # Necessário para o job push-image publicar a imagem Docker no GitHub Packages (ghcr.io)
+      security-events: write # Necessário para fazer upload de resultados do Snyk ou Gitleaks para o GitHub Code Scanning/Security
+    with:
+      environment: ${{ inputs.environment }}
+      git-leaks: ${{ inputs.git-leaks }}
+      sonar-qube: ${{ inputs.sonar-qube }}
+      unit-tests: ${{ inputs.unit-tests }}
+      snyk: ${{ inputs.snyk }}
+      msg-canal-deploy: ${{ inputs.msg-canal-deploy }}
+      dotnetVersion: ${{ vars.DOTNETVERSION }}
+      projectBaseDir: ${{ vars.PROJECTBASEDIR }}
+      sln: ${{ vars.SLN }}
+      mainProject: ${{ vars.MAINPROJECT }}
+      reportTitle: ${{ vars.REPORTTITLE }}
+      sonarExclusions: ${{ vars.SONAREXCLUSIONS || ''}}
+      imageName: ${{ vars.IMAGENAME }}-sandbox
+    secrets:
+      inherit
