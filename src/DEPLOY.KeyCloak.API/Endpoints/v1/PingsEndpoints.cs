@@ -28,7 +28,8 @@ namespace DEPLOY.KeyCloak.API.Endpoints.v1
                 .WithOpenApi(operation => new(operation)
                 {
                     OperationId = "get-ping-pong-test",
-
+                    Summary = "Ping Pong Test",
+                    Description = "This is a ping pong test endpoint to check if the API is running.",
                 })
             .Produces<string>(200);
         }
