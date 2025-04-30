@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
 		<TargetFramework>net9.0</TargetFramework>
@@ -7,7 +7,10 @@
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<PreserveCompilationContext>True</PreserveCompilationContext>
-		<Version>1.0.1</Version>
+		<OpenApiDocumentsDirectory>open-api</OpenApiDocumentsDirectory>
+		<Version>1.1.0</Version>
+		<Company>Canal DEPLOY</Company>
+		<RepositoryUrl>https://github.com/felipementel/DEPLOY.KeyCloak.v1.git</RepositoryUrl>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -15,8 +18,12 @@
 		<PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
 		<PackageReference Include="Keycloak.AuthServices.Authentication" Version="2.6.1" />
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.4" />
+		<PackageReference Include="Microsoft.Extensions.ApiDescription.Server" Version="9.0.4">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.2" />
-		<PackageReference Include="Scalar.AspNetCore" Version="2.2.1" />
+		<PackageReference Include="Scalar.AspNetCore" Version="2.2.3" />
 	</ItemGroup>
 	
 	<ItemGroup>

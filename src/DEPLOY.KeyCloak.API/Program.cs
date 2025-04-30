@@ -81,7 +81,7 @@ else
 app.MapScalarApiReference(options =>
 {
     options
-    .WithTitle("Canal DEPLOY - PoC.KeyCloak.API")
+    .WithTitle("Canal DEPLOY - DEPLOY.KeyCloak.API")
     .WithTheme(ScalarTheme.Saturn)
     .WithPreferredScheme("Bearer")
     .WithHttpBearerAuthentication(bearer =>
