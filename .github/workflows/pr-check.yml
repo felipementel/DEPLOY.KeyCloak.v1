@@ -6,7 +6,6 @@ on:
     types: [opened, synchronize, reopened]
     branches:
       - main
-      - feature/**
     paths-ignore:
       - '**.md'
       - 'docs/**'
@@ -28,7 +27,7 @@ jobs:
       msg-canal-deploy: 'PR Check - Canal DEPLOY'
       dotnetVersion: ${{ vars.DOTNETVERSION || '9.x' }}
       projectBaseDir: ${{ vars.PROJECTBASEDIR || './src' }}
-      sln: ${{ vars.SLN }}
+      solutionFileName: ${{ vars.SOLUTIONFILENAME }}
       mainProject: ${{ vars.MAINPROJECT }}
       reportTitle: ${{ vars.REPORTTITLE || 'PR Check Report' }}
       sonarExclusions: ${{ vars.SONAREXCLUSIONS || '' }}
