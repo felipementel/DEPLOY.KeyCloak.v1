@@ -10,7 +10,7 @@
 > .NET 9 SDK
 
 > [!WARNING]
-> [![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-light.svg)](https://sonarcloud.io/summary/new_code?id=felipementel_PoC.KeyCloak.v1)
+> [![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-light.svg)](https://sonarcloud.io/summary/new_code?id=felipementel_DEPLOY.KeyCloak.v1)
 
 ## Passo a passo
 
@@ -100,13 +100,13 @@ https://hub.docker.com/r/keycloak/keycloak
 ### Create a secrets
 
 > SONAR_TOKEN
-> 
+>
 > SONAR_ORGANIZATION
-> 
+>
 > SONAR_PROJECT_KEY
-> 
+>
 > SONAR_PROJECT_NAME
-> 
+>
 > GITLEAKS_LICENSE
-> 
+>
 > SNYK_TOKEN

@@ -3,10 +3,11 @@ run-name: "PR Check by ${{ github.actor }}"
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened] # Roda quando PR é aberto, atualizado ou reaberto
+    types: [opened, synchronize, reopened]
     branches:
-      - main # Ou a(s) branch(es) alvo do seu PR
-    paths-ignore: # Opcional: Ignora mudanças que não afetam o código
+      - main
+      - feature/**
+    paths-ignore:
       - '**.md'
       - 'docs/**'
       - 'src/**/_requests/**'

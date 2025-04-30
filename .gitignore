@@ -6,6 +6,7 @@
 #Felipe Augusto [https://www.youtube.com/@D.E.P.L.O.Y]
 /docker/data/*
 /docker/.env
+src/**/open-api/
 
 
 # User-specific files

@@ -1,5 +1,5 @@
 # docker run -p 8080:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:26.0.8 start-dev
-# docker build -t felipementel/keycloak-v1 -f src/PoC.KeyCloak.API/Dockerfile ./src
+# docker build -t felipementel/keycloak-v1 -f src/DEPLOY.KeyCloak.API/Dockerfile ./src
 # docker container run --rm --name keycloak-deploy -u app -e ASPNETCORE_ENVIRONMENT=Development -p 7453:8080 felipementel/keycloak-v1:v1.0
 # docker container run --rm --name keycloak-deploy -u app -e ASPNETCORE_HTTP_PORTS=99 -e ASPNETCORE_ENVIRONMENT=Development -p 7453:99 felipementel/keycloak-v1:1.0
 
@@ -42,7 +42,7 @@ services:
   app-service:
     build:
       context: ../src/
-      dockerfile: ../src/PoC.KeyCloak.API/Dockerfile
+      dockerfile: ../src/DEPLOY.KeyCloak.API/Dockerfile
     image: felipementel/keycloak-v1
     container_name: app-container
     restart: unless-stopped
