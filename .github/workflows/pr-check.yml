@@ -6,7 +6,6 @@ on:
     types: [opened, synchronize, reopened]
     branches:
       - main
-      - feature/**
     paths-ignore:
       - '**.md'
       - 'docs/**'
@@ -15,7 +14,7 @@ on:
 jobs:
   call-pr-check-workflow:
     name: Call PR Check Reusable Workflow
-    uses: felipementel/reusable-workflows/.github/workflows/pr-check.yml@feature/spectral
+    uses: felipementel/reusable-workflows/.github/workflows/pr-check.yml@main
     permissions:
       contents: read
       security-events: write
@@ -28,7 +27,7 @@ jobs:
       msg-canal-deploy: 'PR Check - Canal DEPLOY'
       dotnetVersion: ${{ vars.DOTNETVERSION || '9.x' }}
       projectBaseDir: ${{ vars.PROJECTBASEDIR || './src' }}
-      sln: ${{ vars.SLN }}
+      solutionFileName: ${{ vars.SOLUTIONFILENAME }}
       mainProject: ${{ vars.MAINPROJECT }}
       reportTitle: ${{ vars.REPORTTITLE || 'PR Check Report' }}
       sonarExclusions: ${{ vars.SONAREXCLUSIONS || '' }}
