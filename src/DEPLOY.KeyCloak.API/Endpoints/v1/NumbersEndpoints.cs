@@ -43,7 +43,7 @@ namespace DEPLOY.KeyCloak.API.Endpoints.v1
             {
                 if (Random.Shared.Next(0, 2) == 0)
                 {
-                    return Results.UnprocessableEntity(new ValueTask());
+                    return TypedResults.UnprocessableEntity(new ValueTask());
                 }
 
                 return TypedResults.Ok();
