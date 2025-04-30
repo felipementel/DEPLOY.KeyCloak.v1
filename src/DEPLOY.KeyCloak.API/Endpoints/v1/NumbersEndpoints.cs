@@ -34,7 +34,7 @@ namespace DEPLOY.KeyCloak.API.Endpoints.v1
                 {
                     OperationId = "post-random-number",
                     Summary = "Post Random Number",
-                    Description = "Canal DEPLOY",
+                    Description = "Endpoint to post a randomly generated number. This endpoint may return an unprocessable entity response based on random logic.",
                     Tags = new List<OpenApiTag> { new() { Name = "Random Number" } }
                 });
 
