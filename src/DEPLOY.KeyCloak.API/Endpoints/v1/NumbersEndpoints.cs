@@ -15,10 +15,10 @@ namespace DEPLOY.KeyCloak.API.Endpoints.v1
         public static void MapNumbersEndpoints(this IEndpointRouteBuilder app)
         {
             var apiVersionSetNumbers = app
-               .NewApiVersionSet("numbers")
-               .HasApiVersion(new ApiVersion(1))
-               .ReportApiVersions()
-               .Build();
+                .NewApiVersionSet("numbers")
+                .HasApiVersion(new ApiVersion(1))
+                .ReportApiVersions()
+                .Build();
 
             var api = app
                 .MapGroup("/api/v{apiVersion:apiVersion}/numbers")
@@ -26,17 +26,17 @@ namespace DEPLOY.KeyCloak.API.Endpoints.v1
                 .WithApiVersionSet(apiVersionSetNumbers);
 
             api
-                 .MapPost("/post-random-number", GetRandomNumberAsync)
-                 .Produces(401)
-                 .Produces(422)
-                 .Produces(500)
-                 .WithOpenApi(operation => new(operation)
-                 {
-                     OperationId = "post-random-number",
-                     Summary = "Post Random Number",
-                     Description = "Canal DEPLOY",
-                     Tags = new List<OpenApiTag> { new() { Name = "Random Number" } }
-                 });
+                .MapPost("/post-random-number", GetRandomNumberAsync)
+                .Produces(401)
+                .Produces(422)
+                .Produces(500)
+                .WithOpenApi(operation => new(operation)
+                {
+                    OperationId = "post-random-number",
+                    Summary = "Post Random Number",
+                    Description = "Canal DEPLOY",
+                    Tags = new List<OpenApiTag> { new() { Name = "Random Number" } }
+                });
 
             async Task<IResult> GetRandomNumberAsync(
                 CancellationToken cancellationToken = default)
