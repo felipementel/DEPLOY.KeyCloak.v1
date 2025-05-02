@@ -14,7 +14,7 @@ on:
 jobs:
   call-pr-check-workflow:
     name: Call PR Check Reusable Workflow
-    uses: felipementel/reusable-workflows/.github/workflows/pr-check.yml@feature/spectral
+    uses: felipementel/reusable-workflows/.github/workflows/pr-check.yml@main
     permissions:
       contents: read
       security-events: write
