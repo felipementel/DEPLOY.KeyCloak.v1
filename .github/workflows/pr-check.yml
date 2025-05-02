@@ -20,11 +20,11 @@ jobs:
       security-events: write
     with:
       environment: 'DEV'
-      git-leaks: true
-      sonar-qube: true
-      unit-tests: true
+      gitLeaks: true
+      sonarQube: true
+      unitTests: true
       snyk: true
-      msg-canal-deploy: 'PR Check - Canal DEPLOY'
+      msgCanalDeploy: 'PR Check - Canal DEPLOY'
       dotnetVersion: ${{ vars.DOTNETVERSION || '9.x' }}
       projectBaseDir: ${{ vars.PROJECTBASEDIR || './src' }}
       solutionFileName: ${{ vars.SOLUTIONFILENAME }}
@@ -32,5 +32,6 @@ jobs:
       reportTitle: ${{ vars.REPORTTITLE || 'PR Check Report' }}
       sonarExclusions: ${{ vars.SONAREXCLUSIONS || '' }}
       imageName: ${{ vars.IMAGENAME }}
+      openAPIFolder: "open-api"
     secrets:
       inherit
