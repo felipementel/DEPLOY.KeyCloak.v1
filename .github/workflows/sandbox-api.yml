@@ -56,7 +56,7 @@ on:
 
 jobs:
   call-reusable-workflow:
-    uses: felipementel/reusable-workflows/.github/workflows/sandbox-api.yml@feature/spectral
+    uses: felipementel/reusable-workflows/.github/workflows/sandbox-api.yml@main
     permissions:
       contents: read # Necessário para checkout
       packages: write # Necessário para o job push-image publicar a imagem Docker no GitHub Packages (ghcr.io)
