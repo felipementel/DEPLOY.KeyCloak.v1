@@ -27,7 +27,7 @@ namespace DEPLOY.KeyCloak.API.Endpoints.v1
                 })
                 .WithOpenApi(operation => new(operation)
                 {
-                    OperationId = "get-ping-pong-test-v1",
+                    OperationId = "get-ping-pong-test",
 
                 })
             .Produces<string>(200);
