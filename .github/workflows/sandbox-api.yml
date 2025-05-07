@@ -67,6 +67,7 @@ jobs:
       gitLeaks: ${{ inputs.gitLeaks }}
       sonarQube: ${{ inputs.sonarQube }}
       unitTests: ${{ inputs.unitTests }}
+      testsFolder: './src'
       snyk: ${{ inputs.snyk }}
       msgCanalDeploy: ${{ inputs.msgCanalDeploy }}
       dotnetVersion: ${{ vars.DOTNETVERSION }}
