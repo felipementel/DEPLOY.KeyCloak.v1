@@ -31,7 +31,7 @@ jobs:
       - name: Install .NET 9 SDK
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: {{ vars.DOTNETVERSION }}
+          dotnet-version: ${{ vars.DOTNETVERSION }}
         
       - name: Checkout repository
         uses: actions/checkout@v4
