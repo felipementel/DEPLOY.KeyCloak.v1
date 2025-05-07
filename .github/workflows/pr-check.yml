@@ -21,8 +21,9 @@ jobs:
     with:
       environment: 'DEV'
       gitLeaks: true
-      sonarQube: true
+      sonarQube: true      
       unitTests: true
+      testsFolder: './src'
       snyk: true
       msgCanalDeploy: 'PR Check - Canal DEPLOY'
       dotnetVersion: ${{ vars.DOTNETVERSION || '9.x' }}
