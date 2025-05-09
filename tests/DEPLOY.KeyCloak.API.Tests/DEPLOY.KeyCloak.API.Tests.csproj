@@ -28,7 +28,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\DEPLOY.KeyCloak.API\DEPLOY.KeyCloak.API.csproj" />
+	  <ProjectReference Include="..\..\src\DEPLOY.KeyCloak.API\DEPLOY.KeyCloak.API.csproj" />
 	</ItemGroup>
 
 </Project>
