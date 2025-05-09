@@ -68,7 +68,7 @@ jobs:
       environment: ${{ inputs.environment }}
       gitLeaks: ${{ inputs.gitLeaks }}
       sonarQube: ${{ inputs.sonarQube }}
-      testsFolder: "./tests/"
+      testsFolder: "./src/"
       unitTests: ${{ inputs.unitTests }}
       snyk: ${{ inputs.snyk }}
       msgCanalDeploy: ${{ inputs.msgCanalDeploy }}
