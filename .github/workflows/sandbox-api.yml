@@ -2,7 +2,7 @@ name: Sanbox Dispatch ⚡
 run-name: "${{ github.actor }} - ${{ github.run_id }}"
 
 on:
-  pull_request:
+  push:
     branches:
       - main
       - develop
@@ -14,6 +14,8 @@ on:
       - 'docker/**'
       - 'docs/**'
       - 'src/**/_requests/**'
+      - 'src/DEPLOY.AzureServiceBus.Function.Consumer/**'
+      - 'src/DEPLOY.AzureServiceBus.Worker.Consumer/**'
   workflow_dispatch:
     inputs:
       buildMode:
@@ -48,7 +50,7 @@ on:
         description: 'Snyk.io'
         required: false
         default: true
-      msgCanaDeploy:
+      msgCanalDeploy:
         type: string
         description: 'Message to be displayed in the summary'
         required: false
@@ -58,7 +60,7 @@ jobs:
   call-reusable-workflow:
     uses: felipementel/reusable-workflows/.github/workflows/sandbox-api.yml@main
     permissions:
-      contents: read # Necessário para checkout
+      contents: write # Necessário para checkout
       packages: write # Necessário para o job push-image publicar a imagem Docker no GitHub Packages (ghcr.io)
       security-events: write # Necessário para fazer upload de resultados do Snyk ou Gitleaks para o GitHub Code Scanning/Security
     with:
@@ -66,8 +68,8 @@ jobs:
       environment: ${{ inputs.environment }}
       gitLeaks: ${{ inputs.gitLeaks }}
       sonarQube: ${{ inputs.sonarQube }}
+      testsFolder: "./tests/"
       unitTests: ${{ inputs.unitTests }}
-      testsFolder: './src'
       snyk: ${{ inputs.snyk }}
       msgCanalDeploy: ${{ inputs.msgCanalDeploy }}
       dotnetVersion: ${{ vars.DOTNETVERSION }}
