@@ -7,6 +7,7 @@ on:
     branches:
       - main
     paths-ignore:
+      - '.github/**'
       - '**.md'
       - 'docs/**'
       - 'src/**/_requests/**'
