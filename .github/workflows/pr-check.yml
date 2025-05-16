@@ -7,6 +7,7 @@ on:
     branches:
       - main
     paths-ignore:
+      - '.github/**'
       - '**.md'
       - 'docs/**'
       - 'src/**/_requests/**'
@@ -14,14 +15,14 @@ on:
 jobs:
   call-pr-check-workflow:
     name: Call PR Check Reusable Workflow
-    uses: felipementel/reusable-workflows/.github/workflows/pr-check.yml@feature/spectral
+    uses: felipementel/reusable-workflows/.github/workflows/pr-check.yml@main
+    permissions:
+      contents: read
+      security-events: write
     with:
-      environment: 'DEV'
-      git-leaks: true
-      sonar-qube: true
-      unit-tests: true
-      snyk: true
-      msg-canal-deploy: 'PR Check - Canal DEPLOY'
+      environment: "DEV"
+      testsFolder: "tests"
+      msgCanalDeploy: "PR Check - Canal DEPLOY ${{ github.sha }}"
       dotnetVersion: ${{ vars.DOTNETVERSION || '9.x' }}
       projectBaseDir: ${{ vars.PROJECTBASEDIR || './src' }}
       solutionFileName: ${{ vars.SOLUTIONFILENAME }}
@@ -29,5 +30,6 @@ jobs:
       reportTitle: ${{ vars.REPORTTITLE || 'PR Check Report' }}
       sonarExclusions: ${{ vars.SONAREXCLUSIONS || '' }}
       imageName: ${{ vars.IMAGENAME }}
+      openAPIFolder: "open-api"
     secrets:
       inherit
