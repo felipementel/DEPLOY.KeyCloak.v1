@@ -40,9 +40,9 @@ on:
         description: 'Run SonarQube'
         required: false
         default: true
-      unitTests:
+      tests:
         type: boolean
-        description: 'Run Unit Tests'
+        description: 'Run Unit & Integration Tests'
         required: false
         default: true
       snyk:
@@ -68,8 +68,8 @@ jobs:
       environment: ${{ inputs.environment }}
       gitLeaks: ${{ inputs.gitLeaks }}
       sonarQube: ${{ inputs.sonarQube }}
-      testsFolder: "./tests/"
-      unitTests: ${{ inputs.unitTests }}
+      testsFolder: "tests"
+      tests: ${{ inputs.tests }}
       snyk: ${{ inputs.snyk }}
       msgCanalDeploy: ${{ inputs.msgCanalDeploy }}
       dotnetVersion: ${{ vars.DOTNETVERSION }}
