@@ -2,7 +2,7 @@ name: 'PR Caller: Validate PR'
 run-name: "PR Check by ${{ github.actor }}"
 
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, synchronize, reopened]
     branches:
       - main
